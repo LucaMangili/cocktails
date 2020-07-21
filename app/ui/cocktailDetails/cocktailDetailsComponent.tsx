@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import { RootStackParamList } from "../../../App";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -7,12 +7,29 @@ import { cocktailDetailsStyle } from "./cocktailDetailsStyle";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import AddIcon from 'react-native-vector-icons/FontAwesome'
 import { FavouritesContext } from "../../context";
+import { cocktailType } from "../../cocktailType";
 
 
 
 
 const CocktailDetails = ({ navigation, route }: CocktailDetailsProps): JSX.Element => {
-    const cocktail = route.params.cocktail
+    const cocktail: cocktailType = route.params.cocktail
+
+    const addAlert = () => {
+        Alert.alert(
+            '',
+            'Added to Favourites!',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => { },
+                    style: 'cancel'
+                },
+                { text: 'Go to Favourites', onPress: () => navigation.navigate("Favourites", cocktail) }
+            ],
+            { cancelable: false }
+        );
+    }
 
     const { addNewFavourites } = useContext(FavouritesContext);
 
@@ -35,8 +52,8 @@ const CocktailDetails = ({ navigation, route }: CocktailDetailsProps): JSX.Eleme
             </View>
             <View style={cocktailDetailsStyle.iconTextContainer}>
                 <TouchableNativeFeedback onPress={() => (
-                    addNewFavourites([cocktail]),
-                    navigation.navigate('Favourites', { cocktail: cocktail }))}>
+                    addNewFavourites(cocktail),
+                    addAlert())}>
                     <AddIcon name="plus" size={30} />
                 </TouchableNativeFeedback>
                 <Text>Add to Favourites!</Text>

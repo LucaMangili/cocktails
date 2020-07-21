@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const favouritesStyle = StyleSheet.create({
+export const createStyle = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -10,8 +10,10 @@ export const favouritesStyle = StyleSheet.create({
     header: {
         fontSize: 40,
     },
-    bold: {
-        fontSize: 20,
-        fontWeight: "bold"
+    title: {
+        textAlign: "center",
+        fontSize: 15,
+        fontWeight: "bold",
+        margin: 5
     }
-});
+})

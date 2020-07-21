@@ -7,7 +7,9 @@ import CocktailDetails from './app/ui/cocktailDetails/cocktailDetailsComponent';
 import CocktailsList from './app/ui/cocktailsList/CocktailsListComponent';
 import Favourites from './app/ui/favourites/favouritesComponent';
 import Home from './app/ui/home/homeComponent';
-import { withContext } from './app/context/favouritesContext';
+import { FavouritesContextProvider } from './app/context';
+import { cocktailType } from './app/cocktailType';
+import Create from './app/ui/create/createComponent';
 
 
 export type RootStackParamList = {
@@ -20,6 +22,7 @@ export type RootStackParamList = {
   Favourites: {
     cocktail: any;
   },
+  Create: undefined;
 };
 
 export const Stack = createStackNavigator<RootStackParamList>();
@@ -27,15 +30,18 @@ export const Stack = createStackNavigator<RootStackParamList>();
 class App extends React.Component {
   render() {
     return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Splash" headerMode="none">
-          <Stack.Screen name="Splash" component={Splash} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="CocktailsList" component={CocktailsList} />
-          <Stack.Screen name="Favourites" component={Favourites} />
-          <Stack.Screen name="CocktailDetails" component={CocktailDetails} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FavouritesContextProvider favourites={[]}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Splash" headerMode="none">
+            <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="CocktailsList" component={CocktailsList} />
+            <Stack.Screen name="Favourites" component={Favourites} />
+            <Stack.Screen name="CocktailDetails" component={CocktailDetails} />
+            <Stack.Screen name="Create" component={Create} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavouritesContextProvider>
     );
   }
 }

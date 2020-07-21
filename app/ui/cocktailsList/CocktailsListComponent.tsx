@@ -9,6 +9,7 @@ import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 
 
+
 const CocktailsList = ({ navigation, route }: CocktailsListProps): JSX.Element => {
 
     const [cocktails, setCocktails] = useState<any[]>([]);
